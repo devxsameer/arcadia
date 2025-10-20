@@ -5,8 +5,8 @@ import { Link } from 'react-router';
 function Header() {
   return (
     <header className="flex items-center justify-between gap-4 border-b border-neutral-800 px-4 py-3 md:py-4">
-      <h1 className="text-lg font-extrabold tracking-wider">
-        ARCADIA.
+      <h1 className="cursor-pointer text-lg font-extrabold tracking-wider">
+        <Link to="/">ARCADIA.</Link>
       </h1>
       <div className="flex items-center gap-4">
         <div className="flex shrink grow items-center gap-2 rounded-lg bg-neutral-800 px-4">
