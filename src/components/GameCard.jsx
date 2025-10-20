@@ -6,6 +6,7 @@ function GameCard({ name, bgImg }) {
           src={bgImg}
           alt={name}
           className="aspect-video w-full object-cover"
+          loading="lazy"
         />
       </div>
       <div className="p-2 lg:p-4">

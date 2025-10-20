@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Games from './pages/Games';
 import Header from './layout/Header';
 import SideBar from './layout/SideBar';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -11,11 +12,11 @@ function App() {
         <Header />
         <div className="flex items-start">
           <SideBar />
-          <div className="grow">
+          <div className="min-h-120vh grow">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/games" element={<Games />} />
-              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
             </Routes>
           </div>
         </div>
