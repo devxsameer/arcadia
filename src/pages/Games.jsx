@@ -4,6 +4,7 @@ import GameCard from '../components/GameCard';
 import Gallery from '../layout/Gallery';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import LoaderBtn from '../components/LoaderBtn';
 
 function Games() {
   const [page, setPage] = useState(1);
@@ -32,14 +33,15 @@ function Games() {
             All Games
           </h2>
           <Gallery>
-            {games.map((game) => (
+            {games.map((game, index) => (
               <GameCard
-                key={game.id}
+                key={`${game.id}-${index}`}
                 name={game.name}
                 bgImg={game.background_image}
               />
             ))}
           </Gallery>
+          <LoaderBtn loading={loading} />
         </div>
       )}
     </div>
