@@ -10,12 +10,8 @@ function Home() {
     <div className="my-4 w-full">
       {loading && <span>Loading...</span>}
       <Gallery>
-        {games.map((game) => (
-          <GameCard
-            key={game.id}
-            name={game.name}
-            bgImg={game.background_image}
-          />
+        {games.map((game, index) => (
+          <GameCard key={`${game.id}-${index}`} gameData={game} />
         ))}
       </Gallery>
     </div>

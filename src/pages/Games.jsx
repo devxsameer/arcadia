@@ -34,11 +34,7 @@ function Games() {
           </h2>
           <Gallery>
             {games.map((game, index) => (
-              <GameCard
-                key={`${game.id}-${index}`}
-                name={game.name}
-                bgImg={game.background_image}
-              />
+              <GameCard key={`${game.id}-${index}`} gameData={game} />
             ))}
           </Gallery>
           <LoaderBtn loading={loading} />

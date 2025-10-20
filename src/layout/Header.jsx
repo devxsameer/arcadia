@@ -1,4 +1,3 @@
-import { ShoppingCartIcon } from 'lucide-react';
 import { Search, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router';
 

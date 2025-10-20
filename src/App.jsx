@@ -4,6 +4,7 @@ import Games from './pages/Games';
 import Header from './layout/Header';
 import SideBar from './layout/SideBar';
 import Cart from './pages/Cart';
+import Game from './pages/Game';
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/games" element={<Games />} />
               <Route path="/cart" element={<Cart />} />
+              <Route
+                path="/games/game/:gameSlug"
+                element={<Game />}
+              />
             </Routes>
           </div>
         </div>
