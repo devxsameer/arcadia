@@ -4,7 +4,7 @@ import Hamburger from '../components/Hamburger';
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <aside className="scrollbar-hide fixed max-h-screen overflow-auto text-neutral-900 max-lg:pointer-events-none max-lg:inset-0 lg:sticky lg:top-0 lg:block lg:w-56 lg:min-w-56 lg:bg-inherit lg:text-inherit">
+    <aside className="scrollbar-hide fixed z-1000 max-h-screen overflow-auto text-neutral-900 max-lg:pointer-events-none max-lg:inset-0 lg:sticky lg:top-0 lg:block lg:w-56 lg:min-w-56 lg:bg-inherit lg:text-inherit">
       <div
         className={`relative z-50 min-h-screen w-full transition-opacity duration-300 max-lg:p-4 ${isOpen ? 'pointer-events-auto opacity-100 delay-400' : 'max-lg:pointer-events-none max-lg:opacity-0'}`}
       >

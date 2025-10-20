@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 function GameCard({ gameData }) {
   return (
     <div className="mb-4 break-inside-avoid overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-lg lg:mb-6">
-      <div className="w-full overflow-hidden">
+      <div className="w-full overflow-hidden p-2">
         <img
           src={gameData.background_image}
           alt={gameData.name}
-          className="aspect-video w-full object-cover"
+          className="aspect-video w-full rounded-lg object-cover"
           loading="lazy"
         />
       </div>

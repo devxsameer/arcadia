@@ -17,3 +17,11 @@ export const getGameDetails = async (id) => {
   if (!res.ok) throw new Error('Failed to fetch game details');
   return res.json();
 };
+
+export const getGameScreenshots = async (id) => {
+  const res = await fetch(
+    `${BASE_URL}/games/${id}/screenshots?key=${API_KEY}`
+  );
+  if (!res.ok) throw new Error('Failed to fetch screenshots');
+  return res.json();
+};

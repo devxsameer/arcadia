@@ -1,19 +1,28 @@
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import { getGameDetails } from '../services/rawgApi';
+import {
+  getGameDetails,
+  getGameScreenshots,
+} from '../services/rawgApi';
+import Carousel from '../components/Carousel';
 
 function Game() {
   const { gameSlug } = useParams();
   const [game, setGame] = useState(null);
+  const [screenshots, setScreenshots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchGame() {
+    async function fetchGameData() {
       try {
         setLoading(true);
-        const data = await getGameDetails(gameSlug); // you can pass slug or ID
-        setGame(data);
+        const [gameData, screenshotData] = await Promise.all([
+          getGameDetails(gameSlug),
+          getGameScreenshots(gameSlug),
+        ]);
+        setGame(gameData);
+        setScreenshots(screenshotData.results || []);
       } catch (err) {
         setError(err);
       } finally {
@@ -21,9 +30,8 @@ function Game() {
       }
     }
 
-    fetchGame();
+    fetchGameData();
   }, [gameSlug]);
-
   return (
     <>
       {loading && (
@@ -35,10 +43,11 @@ function Game() {
       {game && (
         <div className="mx-auto my-8 max-w-5xl p-4">
           <h1 className="mb-4 text-5xl font-bold">{game.name}</h1>
-          <img
-            src={game.background_image}
-            alt={game.name}
-            className="w-full rounded-2xl shadow-lg"
+          <Carousel
+            slides={[
+              { id: game.name, image: game.background_image },
+              ...screenshots,
+            ]}
           />
           <p className="mt-6 text-lg leading-relaxed text-neutral-300">
             {game.description_raw}
