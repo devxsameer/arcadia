@@ -1,33 +1,64 @@
-import { throttle } from 'lodash';
-import useFetchGames from '../hooks/useFetchGames';
 import GameCard from '../components/GameCard';
 import Gallery from '../layout/Gallery';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import LoaderBtn from '../components/LoaderBtn';
+import { useEffect, useRef } from 'react';
+import { fetchGames } from '../services/rawgApi';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
 
 function Games() {
-  const [page, setPage] = useState(1);
-  const { games, loading } = useFetchGames(page);
+  const {
+    data,
+    isLoading,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['games'],
+    queryFn: fetchGames,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.next) {
+        const url = new URL(lastPage.next);
+        return url.searchParams.get('page');
+      }
+      return undefined;
+    },
+  });
 
-  const handleScroll = throttle(() => {
-    if (
-      !loading &&
-      window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight
-    ) {
-      setPage((prev) => prev + 1);
-    }
-  }, 500);
+  const loaderRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    if (!hasNextPage || !loaderRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        console.log(entries);
+        if (entries[0].isIntersecting && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      {
+        threshold: 1.0,
+        rootMargin: '200px',
+      }
+    );
+    observer.observe(loaderRef.current);
+    return () => observer.disconnect();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  const games = useMemo(
+    () => data?.pages.flatMap((page) => page.results) || [],
+    [data]
+  );
+
   return (
     <div className="my-4 w-full">
-      {loading && <span>Loading...</span>}
-      {games.length && (
+      {isLoading && <span>Loading...</span>}
+      {error && (
+        <div className="font-medium text-red-400">
+          ⚠️ Error loading games: {error.message}
+        </div>
+      )}
+      {!isLoading && (
         <div>
           <h2 className="mb-4 text-5xl font-bold lg:text-7xl">
             All Games
@@ -37,9 +68,17 @@ function Games() {
               <GameCard key={`${game.id}-${index}`} gameData={game} />
             ))}
           </Gallery>
-          <LoaderBtn loading={loading} />
         </div>
       )}
+
+      {/* Infinite scroll Trigger */}
+      <div ref={loaderRef}>
+        {isFetchingNextPage
+          ? 'Loading...'
+          : hasNextPage
+            ? 'Scroll to load more'
+            : 'No more Games'}
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Header from './layout/Header';
 import SideBar from './layout/SideBar';
 import Cart from './pages/Cart';
 import Game from './pages/Game';
+import ScrollToTop from './layout/ScrollToTop';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <div className="flex items-start">
           <SideBar />
           <div className="min-h-120vh grow">
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/games" element={<Games />} />
