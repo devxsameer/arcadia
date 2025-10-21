@@ -21,7 +21,7 @@ export default function DiscoverPage() {
     hasNextPage,
     isFetchingNextPage,
   } = useGamesQuery({
-    key: ['discover', discoverId || 'default'],
+    key: ['games', discoverId || 'default'],
     params: discoverConfig?.params || {},
   });
 

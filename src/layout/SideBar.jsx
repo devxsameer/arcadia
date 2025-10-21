@@ -15,10 +15,10 @@ function SideBar() {
   // Reusable link styles
   const navLinkClasses = ({ isActive }) => {
     const base =
-      'flex items-center gap-2 rounded-md border px-2 py-1 transition-colors duration-200';
+      'flex items-center gap-2 rounded-md border  px-2 py-1 transition-colors duration-200';
     return isActive
-      ? `${base} border-neutral-800 bg-neutral-900`
-      : `${base} border-neutral-950 hover:text-neutral-500`;
+      ? `${base} border-neutral-800 bg-neutral-900 max-lg:bg-neutral-300 max-lg:border-neutral-400`
+      : `${base} border-neutral-950 max-lg:border-neutral-100 hover:text-neutral-500 max-lg:hover:text-neutral-600`;
   };
 
   // Dynamic year for Popular in 20XX
@@ -54,7 +54,7 @@ function SideBar() {
 
         {/* --- DISCOVER SECTION --- */}
         <div className="mt-4 space-y-2">
-          <h4 className="text-xs tracking-widest text-neutral-300 uppercase">
+          <h4 className="text-xs tracking-widest text-neutral-300 uppercase max-lg:text-neutral-800">
             Top
           </h4>
 
@@ -95,7 +95,7 @@ function SideBar() {
       {/* --- RIPPLE OVERLAY --- */}
       <div
         className={`fixed right-4 bottom-4 z-40 h-11 w-11 transform rounded-full bg-neutral-100 transition-transform duration-800 ease-in-out will-change-transform lg:hidden ${
-          isOpen ? 'scale-[62] opacity-100' : 'scale-[1] opacity-0'
+          isOpen ? 'scale-[62]' : 'scale-[1]'
         }`}
       ></div>
     </aside>
