@@ -1,10 +1,18 @@
+import { useParams, useNavigate } from 'react-router';
 import GameCard from '../components/GameCard';
 import Gallery from '../layout/Gallery';
 import { LoaderCircle } from 'lucide-react';
 import useGamesQuery from '../hooks/useGamesQuery';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
+import { discoverConfigs } from '../utils/discoverConfig';
+import { useEffect } from 'react';
 
-function Games() {
+export default function DiscoverPage() {
+  const { discoverId } = useParams();
+  const navigate = useNavigate();
+  const discoverConfig = discoverConfigs[discoverId];
+
+  // ✅ Always call hooks, even if discoverId is invalid
   const {
     data,
     isLoading,
@@ -12,7 +20,10 @@ function Games() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGamesQuery({ key: 'games' });
+  } = useGamesQuery({
+    key: ['discover', discoverId || 'default'],
+    params: discoverConfig?.params || {},
+  });
 
   const loaderRef = useInfiniteScroll({
     fetchNextPage,
@@ -20,7 +31,18 @@ function Games() {
     isFetchingNextPage,
   });
 
-  const games = data?.pages.flatMap((page) => page.results) || [];
+  // Redirect if invalid
+  useEffect(() => {
+    if (!discoverConfig) {
+      const timer = setTimeout(() => navigate('/'), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [discoverConfig, navigate]);
+
+  // Show nothing if invalid while redirecting
+  if (!discoverConfig) return null;
+
+  const games = data?.pages.flatMap((p) => p.results) || [];
 
   return (
     <div className="my-4 min-h-full w-full">
@@ -29,36 +51,33 @@ function Games() {
           <LoaderCircle className="h-12 w-12 animate-spin" />
         </div>
       )}
+
       {error && (
         <div className="font-medium text-red-400">
           ⚠️ Error loading games: {error.message}
         </div>
       )}
-      {!isLoading && (
-        <div>
-          <h2 className="mb-4 text-5xl font-bold lg:text-7xl">
-            All Games
+
+      {!isLoading && !error && (
+        <>
+          <h2 className="mb-4 text-5xl font-bold capitalize lg:text-7xl">
+            {discoverConfig.title}
           </h2>
           <Gallery>
-            {games.map((game, index) => (
-              <GameCard key={`${game.id}-${index}`} gameData={game} />
+            {games.map((game, i) => (
+              <GameCard key={`${game.id}-${i}`} gameData={game} />
             ))}
           </Gallery>
-        </div>
+        </>
       )}
 
-      {/* Infinite scroll Trigger */}
       <div ref={loaderRef} className="h-full w-full content-center">
         {isFetchingNextPage ? (
           <LoaderCircle className="h-8 w-8 animate-spin" />
         ) : hasNextPage ? (
           'Scroll to load more'
-        ) : (
-          ''
-        )}
+        ) : null}
       </div>
     </div>
   );
 }
-
-export default Games;

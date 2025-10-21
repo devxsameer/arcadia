@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import {
   fetchGameDetails,
   fetchGameScreenshots,
@@ -7,6 +7,7 @@ import Carousel from '../components/Carousel';
 import { useQuery } from '@tanstack/react-query';
 import CollapsibleParagraph from '../components/CollapsibleParagraph';
 import { LoaderCircle } from 'lucide-react';
+import { ShieldAlert } from 'lucide-react';
 
 function GameDetails() {
   const { gameSlug } = useParams();
@@ -32,22 +33,30 @@ function GameDetails() {
 
   const isLoading = gameIsLoading || screenshotsLoading;
 
-  if (gameError)
-    return (
-      <div className="p-8 text-red-500">
-        Error: {gameError.message}
-      </div>
-    );
-
   return (
     <>
+      {gameError && (
+        <div className="flex min-h-[70vh] w-full flex-col items-center justify-center">
+          <ShieldAlert className="m-4 h-15 w-15 text-rose-800" />
+          <span className="mb-4 max-w-xl">
+            Error:{' '}
+            <span className="text-2xl">{gameError.message}</span>{' '}
+          </span>
+          <Link
+            to="/"
+            className="rounded-md border bg-neutral-200 px-4 py-1 text-sm font-semibold text-neutral-900 transition-transform will-change-transform hover:scale-105"
+          >
+            Back to home
+          </Link>
+        </div>
+      )}
       {isLoading && (
         <div className="flex min-h-[80vh] w-full items-center justify-center">
           <LoaderCircle className="h-12 w-12 animate-spin" />
         </div>
       )}
 
-      {!isLoading && (
+      {!isLoading && !gameError && (
         <div className="my-4">
           <h1 className="mb-4 text-5xl font-bold">{game.name}</h1>
           <div>

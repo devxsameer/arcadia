@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 
 function GameCard({ gameData }) {
   return (
-    <div className="mb-4 break-inside-avoid overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 p-2 shadow-lg lg:mb-6">
+    <div className="mb-4 break-inside-avoid overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-lg lg:mb-6">
       <div className="w-full overflow-hidden rounded-lg bg-neutral-800">
         <img
           src={gameData.background_image}
@@ -12,7 +12,7 @@ function GameCard({ gameData }) {
           loading="lazy"
         />
       </div>
-      <div className="lg:p-2">
+      <div className="p-2 lg:p-4">
         <div>
           <span>{gameData.metacritic}</span>
         </div>
