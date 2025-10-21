@@ -26,7 +26,7 @@ const Carousel = ({ slides }) => {
   return (
     <div className="relative overflow-hidden rounded-lg border border-neutral-700">
       <div
-        className="flex transition-transform duration-500 ease-out"
+        className="flex bg-neutral-800 transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${curr * 100}%)` }}
       >
         {slides.map((sl) => (
@@ -34,7 +34,8 @@ const Carousel = ({ slides }) => {
             key={sl.id}
             src={sl.image}
             alt={`Game Screenshot ${sl.id}`}
-            className="aspect-video w-full"
+            className="aspect-video w-full object-cover opacity-0 transition-opacity duration-700"
+            onLoad={(e) => (e.target.style.opacity = 1)}
             loading="lazy"
           />
         ))}

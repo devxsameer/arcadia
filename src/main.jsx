@@ -22,8 +22,8 @@ createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
-            <Route path="/games" element={<Games />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/games" element={<Games />} />
             <Route
               path="/games/game/:gameSlug"
               element={<GameDetails />}

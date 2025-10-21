@@ -5,6 +5,8 @@ import {
 } from '../services/rawgApi';
 import Carousel from '../components/Carousel';
 import { useQuery } from '@tanstack/react-query';
+import CollapsibleParagraph from '../components/CollapsibleParagraph';
+import { LoaderCircle } from 'lucide-react';
 
 function GameDetails() {
   const { gameSlug } = useParams();
@@ -30,9 +32,6 @@ function GameDetails() {
 
   const isLoading = gameIsLoading || screenshotsLoading;
 
-  if (isLoading)
-    return <div className="p-8 text-lg">Loading game details...</div>;
-
   if (gameError)
     return (
       <div className="p-8 text-red-500">
@@ -41,30 +40,41 @@ function GameDetails() {
     );
 
   return (
-    <div>
-      <h1 className="mb-4 text-5xl font-bold">{game.name}</h1>
-      <div>
-        <div className="max-w-2xl">
-          <Carousel
-            slides={[
-              { id: game.name, image: game.background_image },
-              ...(screenshots?.results ?? []),
-            ]}
-          />
-          <h4 className="mt-6 text-xl">About</h4>
-          <p className="text-sm text-neutral-400 lg:text-base">
-            {game.description_raw}
-          </p>
+    <>
+      {isLoading && (
+        <div className="flex min-h-[80vh] w-full items-center justify-center">
+          <LoaderCircle className="h-12 w-12 animate-spin" />
         </div>
-        <div className="mt-6 flex flex-wrap gap-6 text-neutral-400">
-          <p>⭐ Rating: {game.rating} / 5</p>
-          <p>🎮 Released: {game.released}</p>
-          <p>
-            🏷️ Genres: {game.genres.map((g) => g.name).join(', ')}
-          </p>
+      )}
+
+      {!isLoading && (
+        <div className="my-4">
+          <h1 className="mb-4 text-5xl font-bold">{game.name}</h1>
+          <div>
+            <div className="max-w-2xl">
+              <Carousel
+                slides={[
+                  { id: game.name, image: game.background_image },
+                  ...(screenshots?.results ?? []),
+                ]}
+              />
+              <h4 className="mt-6 text-xl">About</h4>
+              <CollapsibleParagraph
+                text={game.description_raw}
+                className="text-sm text-neutral-400 lg:text-base"
+              />
+            </div>
+            <div className="mt-6 flex flex-wrap gap-6 text-neutral-400">
+              <p>⭐ Rating: {game.rating} / 5</p>
+              <p>🎮 Released: {game.released}</p>
+              <p>
+                🏷️ Genres: {game.genres.map((g) => g.name).join(', ')}
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
