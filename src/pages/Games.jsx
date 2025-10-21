@@ -3,7 +3,6 @@ import Gallery from '../layout/Gallery';
 import { useEffect, useRef } from 'react';
 import { fetchGames } from '../services/rawgApi';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 
 function Games() {
   const {
@@ -23,35 +22,41 @@ function Games() {
       }
       return undefined;
     },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    cacheTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   });
 
   const loaderRef = useRef(null);
 
   useEffect(() => {
     if (!hasNextPage || !loaderRef.current) return;
+    let fetching = false;
     const observer = new IntersectionObserver(
-      (entries) => {
-        console.log(entries);
-        if (entries[0].isIntersecting && !isFetchingNextPage) {
-          fetchNextPage();
+      async (entries) => {
+        const first = entries[0];
+        if (
+          first.isIntersecting &&
+          !fetching &&
+          !isFetchingNextPage
+        ) {
+          fetching = true;
+          await fetchNextPage();
+          fetching = false;
         }
       },
-      {
-        threshold: 1.0,
-        rootMargin: '200px',
-      }
+      { threshold: 0.3, rootMargin: '400px' }
     );
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  const games = useMemo(
-    () => data?.pages.flatMap((page) => page.results) || [],
-    [data]
-  );
+  const games = data?.pages.flatMap((page) => page.results) || [];
 
   return (
-    <div className="my-4 w-full">
+    <div className="my-4 min-h-full w-full">
       {isLoading && <span>Loading...</span>}
       {error && (
         <div className="font-medium text-red-400">

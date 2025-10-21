@@ -4,8 +4,8 @@ import Games from './pages/Games';
 import Header from './layout/Header';
 import SideBar from './layout/SideBar';
 import Cart from './pages/Cart';
-import Game from './pages/Game';
 import ScrollToTop from './layout/ScrollToTop';
+import GameDetails from './pages/GameDetails';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route
                 path="/games/game/:gameSlug"
-                element={<Game />}
+                element={<GameDetails />}
               />
             </Routes>
           </div>

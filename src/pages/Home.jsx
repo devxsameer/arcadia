@@ -4,11 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchGames } from '../services/rawgApi';
 
 function Home() {
-  const { games, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['games', 1],
     queryFn: () => fetchGames(1),
   });
 
+  const games = data?.pages.flatMap((page) => page.results) || [];
   return (
     <div className="my-4 w-full">
       {isLoading && <span>Loading...</span>}

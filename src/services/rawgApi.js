@@ -10,15 +10,15 @@ export const fetchGames = async ({ pageParam = 1 }) => {
   return res.json();
 };
 
-export const getGameDetails = async (id) => {
-  const res = await fetch(`${BASE_URL}/games/${id}?key=${API_KEY}`);
+export const fetchGameDetails = async (slug) => {
+  const res = await fetch(`${BASE_URL}/games/${slug}?key=${API_KEY}`);
   if (!res.ok) throw new Error('Failed to fetch game details');
   return res.json();
 };
 
-export const getGameScreenshots = async (id) => {
+export const fetchGameScreenshots = async (slug) => {
   const res = await fetch(
-    `${BASE_URL}/games/${id}/screenshots?key=${API_KEY}`
+    `${BASE_URL}/games/${slug}/screenshots?key=${API_KEY}`
   );
   if (!res.ok) throw new Error('Failed to fetch screenshots');
   return res.json();
