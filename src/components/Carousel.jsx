@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 const Carousel = ({ slides }) => {
   const [curr, setCurr] = useState(0);
+  console.log(slides);
 
   const prev = () =>
     setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1));
@@ -32,7 +33,7 @@ const Carousel = ({ slides }) => {
           <img
             key={sl.id}
             src={sl.image}
-            alt="Game Screenshot"
+            alt={`Game Screenshot ${sl.id}`}
             className="aspect-video w-full"
             loading="lazy"
           />
@@ -41,15 +42,17 @@ const Carousel = ({ slides }) => {
       <div className="absolute inset-0 flex items-center justify-between p-4">
         <button
           onClick={prev}
+          aria-label="Previous slide"
           className="transform rounded-full border border-neutral-700 bg-neutral-900 p-1 text-neutral-200 shadow transition-transform hover:scale-110"
         >
-          <ChevronLeft />
+          <ChevronLeft className="max-md:h-4 max-md:w-4" />
         </button>
         <button
           onClick={next}
+          aria-label="Next slide"
           className="transform rounded-full border border-neutral-700 bg-neutral-900 p-1 text-neutral-200 shadow transition-transform hover:scale-110"
         >
-          <ChevronRight />
+          <ChevronRight className="max-md:h-4 max-md:w-4" />
         </button>
       </div>
       <div className="absolute right-0 bottom-4 left-0">
@@ -57,6 +60,7 @@ const Carousel = ({ slides }) => {
           {slides.map((_, i) => (
             <div
               key={i}
+              aria-current={curr === i ? 'true' : 'false'}
               className={`h-1.5 w-1.5 rounded-full bg-white transition-all ${curr === i ? 'scale-150' : 'bg-opacity-50'}`}
             />
           ))}

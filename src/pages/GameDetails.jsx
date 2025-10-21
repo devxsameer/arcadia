@@ -41,24 +41,28 @@ function GameDetails() {
     );
 
   return (
-    <div className="mx-auto my-8 max-w-5xl p-4">
+    <div>
       <h1 className="mb-4 text-5xl font-bold">{game.name}</h1>
-
-      <Carousel
-        slides={[
-          { id: game.name, image: game.background_image },
-          ...(screenshots?.results ?? []),
-        ]}
-      />
-
-      <p className="mt-6 text-lg leading-relaxed text-neutral-300">
-        {game.description_raw}
-      </p>
-
-      <div className="mt-6 flex flex-wrap gap-6 text-neutral-400">
-        <p>⭐ Rating: {game.rating} / 5</p>
-        <p>🎮 Released: {game.released}</p>
-        <p>🏷️ Genres: {game.genres.map((g) => g.name).join(', ')}</p>
+      <div>
+        <div className="max-w-2xl">
+          <Carousel
+            slides={[
+              { id: game.name, image: game.background_image },
+              ...(screenshots?.results ?? []),
+            ]}
+          />
+          <h4 className="mt-6 text-xl">About</h4>
+          <p className="text-sm text-neutral-400 lg:text-base">
+            {game.description_raw}
+          </p>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-6 text-neutral-400">
+          <p>⭐ Rating: {game.rating} / 5</p>
+          <p>🎮 Released: {game.released}</p>
+          <p>
+            🏷️ Genres: {game.genres.map((g) => g.name).join(', ')}
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import Gallery from '../layout/Gallery';
 import { useEffect, useRef } from 'react';
 import { fetchGames } from '../services/rawgApi';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { LoaderCircle } from 'lucide-react';
 
 function Games() {
   const {
@@ -57,7 +58,11 @@ function Games() {
 
   return (
     <div className="my-4 min-h-full w-full">
-      {isLoading && <span>Loading...</span>}
+      {isLoading && (
+        <div className="flex min-h-[80vh] w-full items-center justify-center">
+          <LoaderCircle className="h-12 w-12 animate-spin" />
+        </div>
+      )}
       {error && (
         <div className="font-medium text-red-400">
           ⚠️ Error loading games: {error.message}
@@ -77,12 +82,14 @@ function Games() {
       )}
 
       {/* Infinite scroll Trigger */}
-      <div ref={loaderRef}>
-        {isFetchingNextPage
-          ? 'Loading...'
-          : hasNextPage
-            ? 'Scroll to load more'
-            : 'No more Games'}
+      <div ref={loaderRef} className="h-full w-full content-center">
+        {isFetchingNextPage ? (
+          <LoaderCircle className="h-8 w-8 animate-spin" />
+        ) : hasNextPage ? (
+          'Scroll to load more'
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );
