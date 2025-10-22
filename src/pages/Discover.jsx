@@ -60,9 +60,12 @@ export default function DiscoverPage() {
 
       {!isLoading && !error && (
         <>
-          <h2 className="mb-4 text-5xl font-bold capitalize lg:text-7xl">
+          <h2 className="mb-2 text-5xl font-bold capitalize lg:text-7xl">
             {discoverConfig.title}
           </h2>
+          <p className="mb-4 text-sm text-neutral-500 md:text-base">
+            {discoverConfig.description}
+          </p>
           <Gallery>
             {games.map((game, i) => (
               <GameCard key={`${game.id}-${i}`} gameData={game} />

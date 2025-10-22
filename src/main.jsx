@@ -12,6 +12,9 @@ import GameDetails from './pages/GameDetails';
 import Home from './pages/Home';
 import Games from './pages/Games';
 import Discover from './pages/Discover.jsx';
+import Genres from './pages/Genres.jsx';
+import SearchPage from './pages/Search.jsx';
+import GenreGames from './pages/GenreGames.jsx';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +28,12 @@ createRoot(document.getElementById('root')).render(
             <Route index element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/games" element={<Games />} />
+            <Route path="/genres" element={<Genres />} />
+            <Route
+              path="/genres/:genreSlug"
+              element={<GenreGames />}
+            />
+            <Route path="/search" element={<SearchPage />} />
             <Route
               path="/games/game/:gameSlug"
               element={<GameDetails />}

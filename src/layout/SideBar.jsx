@@ -8,6 +8,7 @@ import {
   Sparkles,
   Crown,
 } from 'lucide-react';
+import { Shapes } from 'lucide-react';
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +53,16 @@ function SideBar() {
           <Gamepad2 className="h-5 w-5" /> All Games
         </NavLink>
 
-        {/* --- DISCOVER SECTION --- */}
+        <NavLink
+          to="/genres"
+          className={navLinkClasses}
+          onClick={() => setIsOpen(false)}
+          end
+        >
+          <Shapes className="h-5 w-5" /> Genres
+        </NavLink>
+
+        {/* --- TOP SECTION --- */}
         <div className="mt-4 space-y-2">
           <h4 className="text-xs tracking-widest text-neutral-300 uppercase max-lg:text-neutral-800">
             Top
@@ -80,6 +90,36 @@ function SideBar() {
             onClick={() => setIsOpen(false)}
           >
             <Crown className="h-5 w-5" /> All Time Top
+          </NavLink>
+        </div>
+        {/* --- NEW RELEASES SECTION --- */}
+        <div className="mt-4 space-y-2">
+          <h4 className="text-xs tracking-widest text-neutral-300 uppercase max-lg:text-neutral-800">
+            New Releases
+          </h4>
+
+          <NavLink
+            to="/discover/last-30-days"
+            className={navLinkClasses}
+            onClick={() => setIsOpen(false)}
+          >
+            <Trophy className="h-5 w-5" /> Last 30 Days
+          </NavLink>
+
+          <NavLink
+            to="/discover/this-week"
+            className={navLinkClasses}
+            onClick={() => setIsOpen(false)}
+          >
+            <Sparkles className="h-5 w-5" /> This Week
+          </NavLink>
+
+          <NavLink
+            to="/discover/next-week"
+            className={navLinkClasses}
+            onClick={() => setIsOpen(false)}
+          >
+            <Crown className="h-5 w-5" /> Next Week
           </NavLink>
         </div>
       </div>

@@ -10,7 +10,7 @@ const CollapsibleParagraph = ({ text, limit = 500 }) => {
     : text.slice(0, limit) + (text.length > limit ? '...' : '');
 
   return (
-    <p className="text-sm text-neutral-500 md:text-base">
+    <p className="py-2 text-sm text-neutral-500 md:text-base">
       {displayText}{' '}
       {text.length > limit && (
         <button

@@ -1,9 +1,11 @@
 import { ChevronRight } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
+import { useRef } from 'react';
 import { useState, useEffect } from 'react';
 
 const Carousel = ({ slides }) => {
   const [curr, setCurr] = useState(0);
+  const carouselEl = useRef(null);
   console.log(slides);
 
   const prev = () =>
@@ -24,20 +26,27 @@ const Carousel = ({ slides }) => {
   }, [slides]);
 
   return (
-    <div className="relative overflow-hidden rounded-lg border border-neutral-700">
+    <div
+      ref={carouselEl}
+      className="relative overflow-hidden rounded-lg border border-neutral-700"
+    >
       <div
-        className="flex bg-neutral-800 transition-transform duration-500 ease-out"
+        className="flex transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${curr * 100}%)` }}
       >
         {slides.map((sl) => (
-          <img
+          <div
             key={sl.id}
-            src={sl.image}
-            alt={`Game Screenshot ${sl.id}`}
-            className="aspect-video w-full object-cover opacity-0 transition-opacity duration-700"
-            onLoad={(e) => (e.target.style.opacity = 1)}
-            loading="lazy"
-          />
+            className="flex aspect-video w-full flex-shrink-0 items-center justify-center"
+          >
+            <img
+              src={sl.image}
+              alt={`Game Screenshot ${sl.id}`}
+              className="h-full w-full object-cover opacity-0 transition-opacity duration-700"
+              onLoad={(e) => (e.target.style.opacity = 1)}
+              loading="lazy"
+            />
+          </div>
         ))}
       </div>
       <div className="absolute inset-0 flex items-center justify-between p-4">

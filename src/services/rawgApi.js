@@ -29,3 +29,15 @@ export const fetchGameScreenshots = async (slug) => {
   if (!res.ok) throw new Error('Failed to fetch screenshots');
   return res.json();
 };
+export const fetchGenres = async () => {
+  const res = await fetch(`${BASE_URL}/genres?key=${API_KEY}`);
+  if (!res.ok) throw new Error('Failed to fetch screenshots');
+  return res.json();
+};
+export const fetchGenreDetails = async (slug) => {
+  const res = await fetch(
+    `${BASE_URL}/genres/${slug}?key=${API_KEY}`
+  );
+  if (!res.ok) throw new Error('Failed to fetch screenshots');
+  return res.json();
+};
