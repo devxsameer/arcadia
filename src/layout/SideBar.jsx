@@ -9,6 +9,10 @@ import {
   Crown,
 } from 'lucide-react';
 import { Shapes } from 'lucide-react';
+import { History } from 'lucide-react';
+import { CalendarDays } from 'lucide-react';
+import { ArrowRightCircle } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +49,15 @@ function SideBar() {
         </NavLink>
 
         <NavLink
+          to="/favorites"
+          className={navLinkClasses}
+          onClick={() => setIsOpen(false)}
+          end
+        >
+          <Heart className="h-5 w-5" /> Favorites
+        </NavLink>
+
+        <NavLink
           to="/games"
           className={navLinkClasses}
           onClick={() => setIsOpen(false)}
@@ -64,7 +77,7 @@ function SideBar() {
 
         {/* --- TOP SECTION --- */}
         <div className="mt-4 space-y-2">
-          <h4 className="text-xs tracking-widest text-neutral-300 uppercase max-lg:text-neutral-800">
+          <h4 className="text-xs font-semibold tracking-widest text-rose-500 uppercase max-lg:text-neutral-800">
             Top
           </h4>
 
@@ -94,7 +107,7 @@ function SideBar() {
         </div>
         {/* --- NEW RELEASES SECTION --- */}
         <div className="mt-4 space-y-2">
-          <h4 className="text-xs tracking-widest text-neutral-300 uppercase max-lg:text-neutral-800">
+          <h4 className="text-xs font-semibold tracking-widest text-rose-500 uppercase max-lg:text-neutral-800">
             New Releases
           </h4>
 
@@ -103,7 +116,7 @@ function SideBar() {
             className={navLinkClasses}
             onClick={() => setIsOpen(false)}
           >
-            <Trophy className="h-5 w-5" /> Last 30 Days
+            <History className="h-5 w-5" /> Last 30 Days
           </NavLink>
 
           <NavLink
@@ -111,7 +124,7 @@ function SideBar() {
             className={navLinkClasses}
             onClick={() => setIsOpen(false)}
           >
-            <Sparkles className="h-5 w-5" /> This Week
+            <CalendarDays className="h-5 w-5" /> This Week
           </NavLink>
 
           <NavLink
@@ -119,7 +132,7 @@ function SideBar() {
             className={navLinkClasses}
             onClick={() => setIsOpen(false)}
           >
-            <Crown className="h-5 w-5" /> Next Week
+            <ArrowRightCircle className="h-5 w-5" /> Next Week
           </NavLink>
         </div>
       </div>

@@ -1,4 +1,5 @@
-import { Search, ShoppingCart } from 'lucide-react';
+import { Heart } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
@@ -22,7 +23,9 @@ function Header() {
   return (
     <header className="flex items-center justify-between gap-4 border-b border-neutral-800 px-4 py-3 md:py-4">
       <h1 className="cursor-pointer text-lg font-extrabold tracking-wider">
-        <Link to="/">ARCADIA.</Link>
+        <Link to="/">
+          ARCADIA<span className="text-rose-600">.</span>
+        </Link>
       </h1>
       <div className="flex items-center gap-4">
         <div className="flex shrink grow items-center gap-2 rounded-lg border border-neutral-800 bg-neutral-900 px-4">
@@ -43,10 +46,10 @@ function Header() {
           />
         </div>
         <Link
-          to="/cart"
-          className="cursor-pointer transition hover:-rotate-20"
+          to="/favorites"
+          className="cursor-pointer text-rose-700 transition hover:-rotate-20"
         >
-          <ShoppingCart className="h-5 w-5 min-w-4" />
+          <Heart className="h-5 w-5 min-w-4" />
         </Link>
       </div>
     </header>

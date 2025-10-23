@@ -6,7 +6,6 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
-import Cart from './pages/Cart';
 import ScrollToTop from './layout/ScrollToTop';
 import GameDetails from './pages/GameDetails';
 import Home from './pages/Home';
@@ -15,6 +14,7 @@ import Discover from './pages/Discover.jsx';
 import Genres from './pages/Genres.jsx';
 import SearchPage from './pages/Search.jsx';
 import GenreGames from './pages/GenreGames.jsx';
+import Favorites from './pages/Favorites.jsx';
 
 const queryClient = new QueryClient();
 
@@ -26,7 +26,7 @@ createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/favorites" element={<Favorites />} />
             <Route path="/games" element={<Games />} />
             <Route path="/genres" element={<Genres />} />
             <Route

@@ -3,6 +3,7 @@ import Gallery from '../layout/Gallery';
 import { LoaderCircle } from 'lucide-react';
 import useGamesQuery from '../hooks/useGamesQuery';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
+import Error from '../components/Error';
 
 function Games() {
   const {
@@ -30,9 +31,7 @@ function Games() {
         </div>
       )}
       {error && (
-        <div className="font-medium text-red-400">
-          ⚠️ Error loading games: {error.message}
-        </div>
+        <Error message={`⚠️ Error loading games: ${error.message}`} />
       )}
       {!isLoading && (
         <div>
