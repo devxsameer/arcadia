@@ -6,7 +6,6 @@ function Breadcrumbs() {
   const location = useLocation();
   const pathname = location.pathname; // e.g., /games/123/details
   const pathParts = pathname.split('/').filter(Boolean); // ["games", "123", "details"]
-  console.log(pathParts);
   const ignoredSegments = ['game'];
 
   return (

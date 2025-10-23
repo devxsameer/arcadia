@@ -8,7 +8,7 @@ function GameCard({ gameData }) {
   const fav = isFav(gameData.id);
 
   return (
-    <div className="relative mb-4 break-inside-avoid overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 shadow-lg lg:mb-6">
+    <div className="relative mb-4 break-inside-avoid overflow-hidden rounded-lg border border-neutral-800 shadow-lg lg:mb-6">
       <img
         src={gameData.background_image}
         alt={gameData.name}
@@ -47,7 +47,7 @@ function GameCard({ gameData }) {
               ) : (
                 <Plus className="h-5 w-5" />
               )}
-              {gameData.added}
+              {fav ? gameData.added + 1 : gameData.added}
             </button>
           </div>
         </div>

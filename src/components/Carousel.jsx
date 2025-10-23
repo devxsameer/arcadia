@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 const Carousel = ({ slides }) => {
   const [curr, setCurr] = useState(0);
   const carouselEl = useRef(null);
-  console.log(slides);
 
   const prev = () =>
     setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1));

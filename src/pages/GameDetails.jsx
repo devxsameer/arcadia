@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import {
   fetchGameDetails,
   fetchGameScreenshots,
@@ -8,9 +8,14 @@ import { useQuery } from '@tanstack/react-query';
 import CollapsibleParagraph from '../components/CollapsibleParagraph';
 import { LoaderCircle } from 'lucide-react';
 import Error from '../components/Error';
+import { useFavorites } from '../hooks/useFavorites';
+import { format, parseISO } from 'date-fns';
+import { Check } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 function GameDetails() {
   const { gameSlug } = useParams();
+  const { addFav, removeFav, isFav } = useFavorites();
 
   const {
     data: game,
@@ -22,6 +27,7 @@ function GameDetails() {
     staleTime: 1000 * 60 * 5,
     cacheTime: 1000 * 60 * 10,
   });
+  const fav = isFav(game?.id);
 
   const { data: screenshots, isLoading: screenshotsLoading } =
     useQuery({
@@ -32,6 +38,8 @@ function GameDetails() {
     });
 
   const isLoading = gameIsLoading || screenshotsLoading;
+
+  console.log(game);
 
   return (
     <>
@@ -44,9 +52,26 @@ function GameDetails() {
 
       {!isLoading && !gameError && (
         <div className="my-4">
-          <h1 className="mb-4 text-5xl font-bold">{game.name}</h1>
-          <div>
-            <div className="max-w-2xl">
+          <h1 className="mb-4 flex items-end gap-4 text-5xl font-bold">
+            {game.name}
+            <button
+              type="button"
+              onClick={() =>
+                fav ? removeFav(game.id) : addFav(game.id)
+              }
+              className={`flex transform cursor-pointer items-center gap-0.5 rounded-md px-2 py-0.5 text-sm text-neutral-200 transition-transform will-change-transform hover:scale-105 ${fav ? 'bg-emerald-600 text-neutral-950' : 'bg-neutral-800'}`}
+            >
+              {fav ? (
+                <Check className="h-5 w-5" />
+              ) : (
+                <Plus className="h-5 w-5" />
+              )}
+              {fav ? game.added + 1 : game.added}
+            </button>
+          </h1>
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            <div className="lg:col-span-2">
               <Carousel
                 slides={[
                   { id: game.name, image: game.background_image },
@@ -59,12 +84,56 @@ function GameDetails() {
                 className="text-sm text-neutral-400 lg:text-base"
               />
             </div>
-            <div className="mt-6 flex flex-wrap gap-6 text-neutral-400">
-              <p>⭐ Rating: {game.rating} / 5</p>
-              <p>🎮 Released: {game.released}</p>
-              <p>
-                🏷️ Genres: {game.genres.map((g) => g.name).join(', ')}
-              </p>
+            <div>
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-neutral-300">
+                <p>
+                  <span className="text-sm text-neutral-400">
+                    🖥️ Platforms:
+                  </span>{' '}
+                  {game.platforms
+                    .map(({ platform }) => platform.name)
+                    .join(', ')}
+                </p>
+                <p>
+                  <span className="text-sm text-neutral-400">
+                    🏷️ Genres:
+                  </span>{' '}
+                  {game.genres.map((g, i) => (
+                    <span key={g.id}>
+                      <Link
+                        to={`/genres/${g.slug}`}
+                        className="underline hover:text-rose-300"
+                      >
+                        {g.name}
+                      </Link>
+                      {i < game.genres.length - 1 && ', '}
+                    </span>
+                  ))}
+                </p>
+
+                <p>
+                  <span className="text-sm text-neutral-400">
+                    ⭐ Rating:
+                  </span>{' '}
+                  {game.rating?.toFixed(1)} / 5
+                </p>
+
+                <p>
+                  <span className="text-sm text-neutral-400">
+                    🎮 Released:
+                  </span>{' '}
+                  {game.released
+                    ? format(parseISO(game.released), 'MMM d, yyyy')
+                    : 'N/A'}
+                </p>
+
+                <p>
+                  <span className="text-sm text-neutral-400">
+                    ❤️ Favorite:
+                  </span>{' '}
+                  {fav ? 'Yes' : 'No'}
+                </p>
+              </div>
             </div>
           </div>
         </div>

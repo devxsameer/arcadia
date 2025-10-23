@@ -95,9 +95,12 @@ function FavoritesPage() {
                   <button
                     type="button"
                     onClick={() => removeFav(game.id)}
-                    className="flex transform cursor-pointer items-center gap-0.5 rounded-md bg-rose-700 px-2 py-1 text-sm text-neutral-200 transition-transform will-change-transform hover:scale-105"
+                    className="flex transform cursor-pointer items-center gap-0.5 rounded-md bg-neutral-200 px-2 py-1 text-sm text-neutral-950 transition-transform will-change-transform hover:scale-105"
                   >
-                    <Trash className="h-4 w-4" />
+                    <Trash
+                      className="h-4 w-4 text-rose-700"
+                      strokeWidth={3}
+                    />
                     Remove from Favorites
                   </button>
                 </div>
