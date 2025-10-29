@@ -1,17 +1,17 @@
-import { useSyncExternalStore } from 'react';
-import { favStore } from '../utils/favStore';
+import { useContext, createContext } from 'react';
+
+export const FavoritesContext = createContext({
+  favIds: [],
+  addFav: () => {},
+  removeFav: () => {},
+  isFav: () => false,
+});
 
 export function useFavorites() {
-  const favIds = useSyncExternalStore(
-    favStore.subscribe,
-    favStore.getSnapshot,
-    () => [] // getServerSnapshot (for SSR) can default to empty array
-  );
-
-  return {
-    favIds,
-    addFav: favStore.addFav,
-    removeFav: favStore.removeFav,
-    isFav: (id) => favIds.includes(id),
-  };
+  const ctx = useContext(FavoritesContext);
+  if (!ctx)
+    throw new Error(
+      'useFavorites must be used within a FavoritesProvider'
+    );
+  return ctx;
 }
