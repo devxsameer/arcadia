@@ -1,12 +1,12 @@
 // src/pages/FavoritesPage.jsx
 import { useQueries } from '@tanstack/react-query';
-import { useFavorites } from '../hooks/useFavorites'; // custom hook returning favIds etc.
-import { fetchGameDetails } from '../services/rawgApi';
 import { Link } from 'react-router';
 import Gallery from '../layout/Gallery';
 import { Trash } from 'lucide-react';
 import { LoaderCircle } from 'lucide-react';
 import Error from '../components/Error';
+import { fetchGameDetails } from '../features/games/api/games.api';
+import { useFavorites } from '../features/favorites/useFavorites';
 
 function FavoritesPage() {
   const { favIds, removeFav } = useFavorites();

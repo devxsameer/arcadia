@@ -1,9 +1,8 @@
 import { Outlet } from 'react-router';
-
 import Header from './layout/Header';
 import SideBar from './layout/SideBar';
 import Breadcrumbs from './components/Breadcrumbs';
-import { FavoritesProvider } from './context/FavoritesContext';
+import { FavoritesProvider } from './features/favorites/FavoritesProvider';
 
 function App() {
   return (

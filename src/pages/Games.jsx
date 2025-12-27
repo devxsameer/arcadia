@@ -1,9 +1,7 @@
-import GameCard from '../components/GameCard';
-import Gallery from '../layout/Gallery';
 import { LoaderCircle } from 'lucide-react';
 import useGamesQuery from '../hooks/useGamesQuery';
-import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import Error from '../components/Error';
+import InfiniteGameList from '@/features/games/components/InfiniteGameList';
 
 function Games() {
   const {
@@ -14,12 +12,6 @@ function Games() {
     hasNextPage,
     isFetchingNextPage,
   } = useGamesQuery();
-
-  const loaderRef = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  });
 
   return (
     <div className="my-4 min-h-full w-full">
@@ -36,24 +28,14 @@ function Games() {
           <h2 className="mb-4 text-5xl font-bold lg:text-7xl">
             All Games
           </h2>
-          <Gallery>
-            {games.map((game, index) => (
-              <GameCard key={`${game.id}-${index}`} gameData={game} />
-            ))}
-          </Gallery>
+          <InfiniteGameList
+            games={games}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
         </div>
       )}
-
-      {/* Infinite scroll Trigger */}
-      <div ref={loaderRef} className="h-full w-full content-center">
-        {isFetchingNextPage ? (
-          <LoaderCircle className="h-8 w-8 animate-spin" />
-        ) : hasNextPage ? (
-          'Scroll to load more'
-        ) : (
-          ''
-        )}
-      </div>
     </div>
   );
 }

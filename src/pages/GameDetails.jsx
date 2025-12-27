@@ -1,8 +1,4 @@
 import { Link, useParams } from 'react-router';
-import {
-  fetchGameDetails,
-  fetchGameScreenshots,
-} from '../services/rawgApi';
 import Carousel from '../components/Carousel';
 import { useQuery } from '@tanstack/react-query';
 import CollapsibleParagraph from '../components/CollapsibleParagraph';
@@ -12,6 +8,10 @@ import { useFavorites } from '../hooks/useFavorites';
 import { format, parseISO } from 'date-fns';
 import { Check } from 'lucide-react';
 import { Plus } from 'lucide-react';
+import {
+  fetchGameDetails,
+  fetchGameScreenshots,
+} from '../features/games/api/games.api';
 
 function GameDetails() {
   const { gameSlug } = useParams();

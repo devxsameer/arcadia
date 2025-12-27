@@ -1,10 +1,8 @@
 import { useSearchParams } from 'react-router';
 import useGamesQuery from '../hooks/useGamesQuery';
-import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import { LoaderCircle } from 'lucide-react';
-import Gallery from '../layout/Gallery';
-import GameCard from '../components/GameCard';
 import Error from '../components/Error';
+import InfiniteGameList from '@/features/games/components/InfiniteGameList';
 
 function SearchPage() {
   const [searchParams] = useSearchParams();
@@ -17,12 +15,6 @@ function SearchPage() {
     hasNextPage,
     isFetchingNextPage,
   } = useGamesQuery({ params: { search: query } });
-
-  const loaderRef = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  });
 
   return (
     <div className="my-4 min-h-full w-full">
@@ -42,24 +34,14 @@ function SearchPage() {
           <h2 className="mb-4 text-5xl font-bold lg:text-7xl">
             Search Results for "{query}"
           </h2>
-          <Gallery>
-            {games.map((game, index) => (
-              <GameCard key={`${game.id}-${index}`} gameData={game} />
-            ))}
-          </Gallery>
+          <InfiniteGameList
+            games={games}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
         </div>
       )}
-
-      {/* Infinite scroll Trigger */}
-      <div ref={loaderRef} className="h-full w-full content-center">
-        {isFetchingNextPage ? (
-          <LoaderCircle className="h-8 w-8 animate-spin" />
-        ) : hasNextPage ? (
-          'Scroll to load more'
-        ) : (
-          ''
-        )}
-      </div>
     </div>
   );
 }

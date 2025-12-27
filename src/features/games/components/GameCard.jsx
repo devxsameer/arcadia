@@ -1,7 +1,6 @@
-import { Plus } from 'lucide-react';
 import { Link } from 'react-router';
-import { useFavorites } from '../hooks/useFavorites';
-import { Check } from 'lucide-react';
+import { Plus, Check } from 'lucide-react';
+import { useFavorites } from '@/features/favorites/useFavorites';
 
 function GameCard({ gameData }) {
   const { favIds: _, addFav, removeFav, isFav } = useFavorites();

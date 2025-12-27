@@ -1,10 +1,8 @@
-import GameCard from '../components/GameCard';
-import Gallery from '../layout/Gallery';
 import { LoaderCircle } from 'lucide-react';
 import useGamesQuery from '../hooks/useGamesQuery';
-import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import { Link } from 'react-router';
 import Error from '../components/Error';
+import InfiniteGameList from '@/features/games/components/InfiniteGamesList';
 
 function Home() {
   const {
@@ -16,12 +14,6 @@ function Home() {
     isFetchingNextPage,
   } = useGamesQuery({
     params: { ordering: '-added' },
-  });
-
-  const loaderRef = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
   });
 
   return (
@@ -62,27 +54,14 @@ function Home() {
             Based on the games that users are adding most right now —
             the freshest and fastest rising titles.
           </p>
-          <Gallery>
-            {games.map((game, index) => (
-              <GameCard key={`${game.id}-${index}`} gameData={game} />
-            ))}
-          </Gallery>
         </div>
       )}
-
-      {/* Infinite scroll Trigger */}
-      <div ref={loaderRef} className="h-full w-full content-center">
-        <div className="flex justify-center py-6">
-          {isFetchingNextPage && (
-            <LoaderCircle className="h-8 w-8 animate-spin" />
-          )}
-          {!isFetchingNextPage && hasNextPage && (
-            <p className="text-gray-400">
-              Scroll down to load more games...
-            </p>
-          )}
-        </div>
-      </div>
+      <InfiniteGameList
+        games={games}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </div>
   );
 }

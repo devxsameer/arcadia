@@ -1,7 +1,7 @@
 import { LoaderCircle } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchGenres } from '../services/rawgApi';
 import { Link } from 'react-router';
+import { fetchGenres } from '../features/genres/api/genres.api';
 
 function Genres() {
   const {

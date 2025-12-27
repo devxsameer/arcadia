@@ -2,14 +2,12 @@ import { useParams } from 'react-router';
 import { LoaderCircle } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 
-import GameCard from '../components/GameCard';
-import Gallery from '../layout/Gallery';
 import CollapsibleParagraph from '../components/CollapsibleParagraph';
+import InfiniteGameList from '@/features/games/components/InfiniteGameList';
 
-import { fetchGenreDetails } from '../services/rawgApi';
-import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import useGamesQuery from '../hooks/useGamesQuery';
 import { extractText } from '../utils/utils';
+import { fetchGenreDetails } from '../features/genres/api/genres.api';
 
 export default function GenreGames() {
   const { genreSlug } = useParams();
@@ -39,12 +37,6 @@ export default function GenreGames() {
   } = useGamesQuery({
     params: { genres: genreSlug },
     enabled: !!genreSlug,
-  });
-
-  const loaderRef = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
   });
 
   /** 🎨 Loading state */
@@ -83,28 +75,12 @@ export default function GenreGames() {
           )}
         </>
       )}
-
-      <Gallery>
-        {games.map((game) => (
-          <GameCard key={game.id} gameData={game} />
-        ))}
-      </Gallery>
-
-      {/* Infinite Scroll Trigger */}
-      <div
-        ref={loaderRef}
-        className="h-full w-full content-center py-8 text-center"
-      >
-        {isFetchingNextPage ? (
-          <LoaderCircle className="mx-auto h-8 w-8 animate-spin" />
-        ) : hasNextPage ? (
-          <span className="text-neutral-400">
-            Scroll to load more...
-          </span>
-        ) : (
-          <span className="text-neutral-500">No more games 🎮</span>
-        )}
-      </div>
+      <InfiniteGameList
+        games={games}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
     </div>
   );
 }

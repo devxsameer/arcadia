@@ -1,9 +1,7 @@
 import { useParams, useNavigate } from 'react-router';
-import GameCard from '../components/GameCard';
-import Gallery from '../layout/Gallery';
 import { LoaderCircle } from 'lucide-react';
 import useGamesQuery from '../hooks/useGamesQuery';
-import useInfiniteScroll from '../hooks/useInfiniteScroll';
+import InfiniteGameList from '@/features/games/components/InfiniteGameList';
 import { discoverConfigs } from '../utils/discoverConfig';
 import { useEffect } from 'react';
 
@@ -22,12 +20,6 @@ export default function DiscoverPage() {
     isFetchingNextPage,
   } = useGamesQuery({
     params: discoverConfig?.params || {},
-  });
-
-  const loaderRef = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
   });
 
   // Redirect if invalid
@@ -63,21 +55,14 @@ export default function DiscoverPage() {
           <p className="mb-4 text-sm text-neutral-500 md:text-base">
             {discoverConfig.description}
           </p>
-          <Gallery>
-            {games.map((game, i) => (
-              <GameCard key={`${game.id}-${i}`} gameData={game} />
-            ))}
-          </Gallery>
+          <InfiniteGameList
+            games={games}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
         </>
       )}
-
-      <div ref={loaderRef} className="h-full w-full content-center">
-        {isFetchingNextPage ? (
-          <LoaderCircle className="h-8 w-8 animate-spin" />
-        ) : hasNextPage ? (
-          'Scroll to load more'
-        ) : null}
-      </div>
     </div>
   );
 }
