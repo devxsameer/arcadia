@@ -1,12 +1,10 @@
 import { useParams } from 'react-router';
 import { LoaderCircle } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-
-import CollapsibleParagraph from '../components/CollapsibleParagraph';
+import CollapsibleParagraph from '@/shared/components/CollapsibleParagraph';
 import InfiniteGameList from '@/features/games/components/InfiniteGameList';
-
 import useGamesQuery from '@/features/games/hooks/useGamesQuery';
-import { extractText } from '../utils/utils';
+import { extractText } from '@/shared/utils/utils';
 import { fetchGenreDetails } from '../api/genres.api';
 
 export default function GenreGames() {

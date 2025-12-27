@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router';
 import { LoaderCircle } from 'lucide-react';
 import useGamesQuery from '@/features/games/hooks/useGamesQuery';
 import InfiniteGameList from '@/features/games/components/InfiniteGameList';
-import { discoverConfigs } from '@/shared/utils/discoverConfig';
+import { discoverConfigs } from '../utils/discoverConfig';
 import { useEffect } from 'react';
 
 export default function DiscoverPage() {
