@@ -66,7 +66,7 @@ This architecture allows features to evolve independently without increasing cou
 
 ## 📂 Folder Structure
 
-````text
+```text
 src/
 ├── app/                 # App bootstrap (router, providers)
 ├── features/            # Feature-based domains (games, genres, favorites)
@@ -86,6 +86,7 @@ src/
 ├── lib/                 # App-wide infrastructure (API client, env, queryClient)
 ├── styles/              # Global styles & Tailwind setup
 └── main.jsx             # Application entry point
+
 ```
 
 ---
@@ -97,7 +98,7 @@ src/
 ```bash
 git clone https://github.com/devxsameer/arcadia.git
 cd arcadia
-````
+```
 
 ### 2. Install dependencies
 
