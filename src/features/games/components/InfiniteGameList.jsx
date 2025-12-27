@@ -1,8 +1,8 @@
 // src/features/games/components/InfiniteGameList.jsx
 import { LoaderCircle } from 'lucide-react';
 import GameCard from './GameCard';
-import Gallery from '@/layout/Gallery';
-import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import Gallery from '@/shared/components/Gallery';
+import useInfiniteScroll from '@/shared/hooks/useInfiniteScroll';
 
 /**
  * Reusable infinite-scrolling game list

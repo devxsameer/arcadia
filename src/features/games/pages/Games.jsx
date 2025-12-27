@@ -1,12 +1,10 @@
-import { useSearchParams } from 'react-router';
-import useGamesQuery from '../hooks/useGamesQuery';
+// src/features/games/pages/Games.jsx
 import { LoaderCircle } from 'lucide-react';
-import Error from '../components/Error';
+import useGamesQuery from '@/features/games/hooks/useGamesQuery';
+import Error from '@/shared/components/Error';
 import InfiniteGameList from '@/features/games/components/InfiniteGameList';
 
-function SearchPage() {
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get('q');
+function Games() {
   const {
     games,
     isLoading,
@@ -14,7 +12,7 @@ function SearchPage() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGamesQuery({ params: { search: query } });
+  } = useGamesQuery({});
 
   return (
     <div className="my-4 min-h-full w-full">
@@ -23,16 +21,13 @@ function SearchPage() {
           <LoaderCircle className="h-12 w-12 animate-spin" />
         </div>
       )}
-      {error && <Error message={error} />}
-      {!isLoading && games.length === 0 && (
-        <Error
-          message={`No games found for "${query}". Try a different search term.`}
-        />
+      {error && (
+        <Error message={`⚠️ Error loading games: ${error.message}`} />
       )}
-      {!isLoading && Boolean(games.length) && (
+      {!isLoading && (
         <div>
           <h2 className="mb-4 text-5xl font-bold lg:text-7xl">
-            Search Results for "{query}"
+            All Games
           </h2>
           <InfiniteGameList
             games={games}
@@ -46,4 +41,4 @@ function SearchPage() {
   );
 }
 
-export default SearchPage;
+export default Games;

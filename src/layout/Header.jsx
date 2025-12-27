@@ -1,3 +1,4 @@
+// src/layout/Header.jsx
 import { Heart } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { useState } from 'react';

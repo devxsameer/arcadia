@@ -1,3 +1,4 @@
+// src/shared/components/Error.jsx
 import { ShieldAlert } from 'lucide-react';
 import { Link } from 'react-router';
 function Error({ message }) {

@@ -1,5 +1,5 @@
 // src/features/genres/api/genres.api.js
-import { apiGet } from '../../../lib/apiClient';
+import { apiGet } from '@/lib/apiClient';
 
 /**
  * Fetch all genres

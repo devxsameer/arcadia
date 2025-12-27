@@ -1,7 +1,7 @@
 import { LoaderCircle } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router';
-import { fetchGenres } from '../features/genres/api/genres.api';
+import { fetchGenres } from '../api/genres.api';
 
 function Genres() {
   const {
@@ -12,7 +12,6 @@ function Genres() {
     queryKey: ['genre'],
     queryFn: fetchGenres,
   });
-  console.log(genres);
 
   return (
     <div className="my-4 min-h-full w-full">

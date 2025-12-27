@@ -1,33 +1,53 @@
+// src/app/router.jsx
 import { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router';
 
-import App from '@/App';
+import AppLayout from '@/layout/AppLayout';
 
-// Lazy-loaded pages
-const Home = lazy(() => import('@/pages/Home'));
-const Favorites = lazy(() => import('@/pages/Favorites'));
-const Games = lazy(() => import('@/pages/Games'));
-const Genres = lazy(() => import('@/pages/Genres'));
-const SearchPage = lazy(() => import('@/pages/Search'));
-const GenreGames = lazy(() => import('@/pages/GenreGames'));
-const GameDetails = lazy(() => import('@/pages/GameDetails'));
-const Discover = lazy(() => import('@/pages/Discover'));
+// Games feature
+const Home = lazy(() => import('@/features/games/pages/Home'));
+const Games = lazy(() => import('@/features/games/pages/Games'));
+const GameDetails = lazy(
+  () => import('@/features/games/pages/GameDetails')
+);
+const SearchPage = lazy(
+  () => import('@/features/games/pages/Search')
+);
+
+// Genres feature
+const Genres = lazy(() => import('@/features/genres/pages/Genres'));
+const GenreGames = lazy(
+  () => import('@/features/genres/pages/GenreGames')
+);
+
+// Discover feature
+const Discover = lazy(
+  () => import('@/features/discover/pages/Discover')
+);
+
+// Favorites feature
+const Favorites = lazy(
+  () => import('@/features/favorites/pages/Favorites')
+);
 
 export default function AppRouter() {
   return (
     <Routes>
-      <Route path="/" element={<App />}>
+      <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
-        <Route path="favorites" element={<Favorites />} />
         <Route path="games" element={<Games />} />
-        <Route path="genres" element={<Genres />} />
-        <Route path="genres/:genreSlug" element={<GenreGames />} />
-        <Route path="search" element={<SearchPage />} />
         <Route
           path="games/game/:gameSlug"
           element={<GameDetails />}
         />
+        <Route path="search" element={<SearchPage />} />
+
+        <Route path="genres" element={<Genres />} />
+        <Route path="genres/:genreSlug" element={<GenreGames />} />
+
         <Route path="discover/:discoverId" element={<Discover />} />
+        <Route path="favorites" element={<Favorites />} />
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

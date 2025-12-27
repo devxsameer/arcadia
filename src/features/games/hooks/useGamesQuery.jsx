@@ -1,7 +1,7 @@
-// src/hooks/useGamesQuery.js
+// src/features/games/hooks/useGamesQuery.jsx
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { gameKeys } from './gameQueryKeys';
-import { fetchGames } from '../features/games/api/games.api';
+import { fetchGames } from '../api/games.api';
 
 export default function useGamesQuery({ params = {} }) {
   const query = useInfiniteQuery({

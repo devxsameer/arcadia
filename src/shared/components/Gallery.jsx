@@ -1,3 +1,4 @@
+// src/shared/components/Gallery.jsx
 import Masonry from 'react-masonry-css';
 
 export default function Gallery({ children }) {

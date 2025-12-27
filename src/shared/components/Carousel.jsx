@@ -1,3 +1,4 @@
+// src/shared/components/Carousel.jsx
 import { ChevronRight } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import { useRef } from 'react';
@@ -36,7 +37,7 @@ const Carousel = ({ slides }) => {
         {slides.map((sl) => (
           <div
             key={sl.id}
-            className="flex aspect-video w-full flex-shrink-0 items-center justify-center"
+            className="flex aspect-video w-full shrink-0 items-center justify-center"
           >
             <img
               src={sl.image}

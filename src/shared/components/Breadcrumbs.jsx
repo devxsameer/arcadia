@@ -1,3 +1,4 @@
+// src/shared/components/Breadcrumbs.jsx
 import { ChevronRight } from 'lucide-react';
 import { House } from 'lucide-react';
 import { Link, useLocation } from 'react-router';

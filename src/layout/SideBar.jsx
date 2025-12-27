@@ -1,6 +1,7 @@
+// src/layout/SideBar.jsx
 import { useState } from 'react';
 import { NavLink } from 'react-router';
-import Hamburger from '../components/Hamburger';
+import Hamburger from '@/shared/components/Hamburger';
 import {
   House,
   Gamepad2,
@@ -30,7 +31,7 @@ function SideBar() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <aside className="scrollbar-hide fixed z-[1000] max-h-screen overflow-auto text-neutral-900 max-lg:pointer-events-none max-lg:inset-0 lg:sticky lg:top-0 lg:block lg:w-56 lg:min-w-56 lg:bg-inherit lg:text-neutral-300">
+    <aside className="scrollbar-hide fixed z-1000 max-h-screen overflow-auto text-neutral-900 max-lg:pointer-events-none max-lg:inset-0 lg:sticky lg:top-0 lg:block lg:w-56 lg:min-w-56 lg:bg-inherit lg:text-neutral-300">
       {/* Sidebar Content */}
       <div
         className={`relative z-50 flex w-full flex-col gap-2 px-2 py-4 transition-opacity duration-300 max-lg:min-h-screen max-lg:p-4 ${

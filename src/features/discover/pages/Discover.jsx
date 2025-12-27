@@ -1,8 +1,9 @@
+// src/features/discover/pages/Discover.jsx
 import { useParams, useNavigate } from 'react-router';
 import { LoaderCircle } from 'lucide-react';
-import useGamesQuery from '../hooks/useGamesQuery';
+import useGamesQuery from '@/features/games/hooks/useGamesQuery';
 import InfiniteGameList from '@/features/games/components/InfiniteGameList';
-import { discoverConfigs } from '../utils/discoverConfig';
+import { discoverConfigs } from '@/shared/utils/discoverConfig';
 import { useEffect } from 'react';
 
 export default function DiscoverPage() {

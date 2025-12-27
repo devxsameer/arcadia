@@ -1,3 +1,4 @@
+// src/shared/utils/utils.js
 export function extractText(htmlString) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlString, 'text/html');

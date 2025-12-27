@@ -1,12 +1,9 @@
 // src/main.jsx
 import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router';
-import { QueryClientProvider } from '@tanstack/react-query';
 import { LoaderCircle } from 'lucide-react';
 
-import { queryClient } from './lib/queryClient';
-import ScrollToTop from './layout/ScrollToTop';
+import AppProviders from './app/providers';
 import AppRouter from './app/router';
 
 const loaderFallback = (
@@ -17,13 +14,10 @@ const loaderFallback = (
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Suspense fallback={loaderFallback}>
-          <AppRouter />
-        </Suspense>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <AppProviders>
+      <Suspense fallback={loaderFallback}>
+        <AppRouter />
+      </Suspense>
+    </AppProviders>
   </StrictMode>
 );

@@ -1,17 +1,17 @@
 import { Link, useParams } from 'react-router';
-import Carousel from '../components/Carousel';
+import Carousel from '@/shared/components/Carousel';
+import Error from '@/shared/components/Error';
+import CollapsibleParagraph from '@/shared/components/CollapsibleParagraph';
 import { useQuery } from '@tanstack/react-query';
-import CollapsibleParagraph from '../components/CollapsibleParagraph';
 import { LoaderCircle } from 'lucide-react';
-import Error from '../components/Error';
-import { useFavorites } from '../hooks/useFavorites';
+import { useFavorites } from '@/features/favorites/useFavorites';
 import { format, parseISO } from 'date-fns';
 import { Check } from 'lucide-react';
 import { Plus } from 'lucide-react';
 import {
   fetchGameDetails,
   fetchGameScreenshots,
-} from '../features/games/api/games.api';
+} from '../api/games.api';
 
 function GameDetails() {
   const { gameSlug } = useParams();
@@ -38,8 +38,6 @@ function GameDetails() {
     });
 
   const isLoading = gameIsLoading || screenshotsLoading;
-
-  console.log(game);
 
   return (
     <>

@@ -1,3 +1,4 @@
+// src/shared/components/Hamburger.jsx
 export default function Hamburger({ isOpen, onClick }) {
   return (
     <button
@@ -22,8 +23,8 @@ export default function Hamburger({ isOpen, onClick }) {
           rx="1"
           className={`origin-center transform transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] ${
             isOpen
-              ? 'translate-x-0 translate-y-0 -rotate-[45deg]'
-              : 'translate-x-[7px] -translate-y-[5px]'
+              ? 'translate-x-0 translate-y-0 -rotate-45'
+              : 'translate-x-1.75 -translate-y-1.25'
           }`}
         />
 
@@ -45,9 +46,7 @@ export default function Hamburger({ isOpen, onClick }) {
           height="2"
           rx="1"
           className={`origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] ${
-            isOpen
-              ? 'translate-y-0 rotate-[135deg]'
-              : 'translate-y-[5px]'
+            isOpen ? 'translate-y-0 rotate-135' : 'translate-y-1.25'
           }`}
         />
       </svg>

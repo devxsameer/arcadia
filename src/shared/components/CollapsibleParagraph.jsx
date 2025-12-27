@@ -1,3 +1,4 @@
+// src/shared/components/CollapsibleParagraph.jsx
 import { useState } from 'react';
 
 const CollapsibleParagraph = ({ text, limit = 500 }) => {

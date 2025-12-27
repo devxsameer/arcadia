@@ -1,8 +1,8 @@
 import { LoaderCircle } from 'lucide-react';
-import useGamesQuery from '../hooks/useGamesQuery';
+import useGamesQuery from '@/features/games/hooks/useGamesQuery';
 import { Link } from 'react-router';
-import Error from '../components/Error';
-import InfiniteGameList from '@/features/games/components/InfiniteGamesList';
+import Error from '@/shared/components/Error';
+import InfiniteGameList from '@/features/games/components/InfiniteGameList';
 
 function Home() {
   const {

@@ -5,9 +5,9 @@ import { useQuery } from '@tanstack/react-query';
 import CollapsibleParagraph from '../components/CollapsibleParagraph';
 import InfiniteGameList from '@/features/games/components/InfiniteGameList';
 
-import useGamesQuery from '../hooks/useGamesQuery';
+import useGamesQuery from '@/features/games/hooks/useGamesQuery';
 import { extractText } from '../utils/utils';
-import { fetchGenreDetails } from '../features/genres/api/genres.api';
+import { fetchGenreDetails } from '../api/genres.api';
 
 export default function GenreGames() {
   const { genreSlug } = useParams();
