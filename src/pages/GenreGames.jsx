@@ -29,7 +29,7 @@ export default function GenreGames() {
 
   /** 🎮 Fetch games for that genre (infinite scrolling) */
   const {
-    data: gamesData,
+    games,
     isLoading: isGamesLoading,
     isError: isGamesError,
     error: gamesError,
@@ -37,7 +37,6 @@ export default function GenreGames() {
     hasNextPage,
     isFetchingNextPage,
   } = useGamesQuery({
-    key: ['genreGames', genreSlug],
     params: { genres: genreSlug },
     enabled: !!genreSlug,
   });
@@ -47,9 +46,6 @@ export default function GenreGames() {
     hasNextPage,
     isFetchingNextPage,
   });
-
-  const games =
-    gamesData?.pages.flatMap((page) => page.results) ?? [];
 
   /** 🎨 Loading state */
   if (isGenreLoading || isGamesLoading) {

@@ -8,14 +8,13 @@ import Error from '../components/Error';
 
 function Home() {
   const {
-    data,
+    games,
     isLoading,
     error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useGamesQuery({
-    key: 'games',
     params: { ordering: '-added' },
   });
 
@@ -25,11 +24,9 @@ function Home() {
     isFetchingNextPage,
   });
 
-  const games = data?.pages.flatMap((page) => page.results) || [];
-
   return (
     <div className="my-4 min-h-full w-full">
-      <section className="relative mb-8 rounded-lg bg-neutral-900 bg-gradient-to-r from-rose-700/75 to-neutral-900 px-2 py-8">
+      <section className="relative mb-8 rounded-lg bg-neutral-900 bg-linear-to-r from-rose-700/75 to-neutral-900 px-2 py-8">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="mb-2 text-5xl font-bold xl:text-7xl">
             Welcome to Arcadia

@@ -7,21 +7,19 @@ import Error from '../components/Error';
 
 function Games() {
   const {
-    data,
+    games,
     isLoading,
     error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGamesQuery({ key: 'games' });
+  } = useGamesQuery();
 
   const loaderRef = useInfiniteScroll({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   });
-
-  const games = data?.pages.flatMap((page) => page.results) || [];
 
   return (
     <div className="my-4 min-h-full w-full">

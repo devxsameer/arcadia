@@ -14,14 +14,13 @@ export default function DiscoverPage() {
 
   // ✅ Always call hooks, even if discoverId is invalid
   const {
-    data,
+    games,
     isLoading,
     error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useGamesQuery({
-    key: ['games', discoverId || 'default'],
     params: discoverConfig?.params || {},
   });
 
@@ -41,8 +40,6 @@ export default function DiscoverPage() {
 
   // Show nothing if invalid while redirecting
   if (!discoverConfig) return null;
-
-  const games = data?.pages.flatMap((p) => p.results) || [];
 
   return (
     <div className="my-4 min-h-full w-full">

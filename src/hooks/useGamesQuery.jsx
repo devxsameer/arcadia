@@ -1,13 +1,11 @@
-// hooks/useGamesQuery.js
+// src/hooks/useGamesQuery.js
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchGames } from '../services/rawgApi';
+import { gameKeys } from './gameQueryKeys';
 
-export default function useGamesQuery({
-  key = 'games',
-  params = {},
-}) {
-  return useInfiniteQuery({
-    queryKey: [key, params],
+export default function useGamesQuery({ params = {} }) {
+  const query = useInfiniteQuery({
+    queryKey: gameKeys.list(params),
     queryFn: ({ pageParam = 1 }) => fetchGames({ pageParam, params }),
     getNextPageParam: (lastPage) =>
       lastPage.next
@@ -19,4 +17,12 @@ export default function useGamesQuery({
     refetchOnMount: false,
     refetchOnReconnect: false,
   });
+
+  const games =
+    query.data?.pages.flatMap((page) => page.results) ?? [];
+
+  return {
+    ...query,
+    games,
+  };
 }
