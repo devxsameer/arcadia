@@ -3,7 +3,7 @@
 Discover, explore, and track your next favorite video game.  
 **Arcadia** is a modern video game discovery app built with **React 19**, **Vite**, and the **RAWG Video Games API**.
 
-🌐 **Live Demo:** [arcadiagamesx.vercel.app](https://arcadiagamesx.vercel.app/)
+🌐 **Live Demo:** [arcadia.devxsameer.me](https://arcadia.devxsameer.me)
 
 ---
 
@@ -17,24 +17,18 @@ Discover, explore, and track your next favorite video game.
 
 ## 🧭 Overview
 
-**Arcadia** is your gateway to the world of gaming.  
-Browse trending, upcoming, and top-rated games — search across genres, view details, and build your personal **favorites collection**.
+**Arcadia** is a production-style video game discovery platform built using modern React architecture principles.
 
-Built as part of [The Odin Project](https://www.theodinproject.com/), Arcadia focuses on:
-
-- Modular, scalable React architecture
-- Optimized API fetching and caching
-- Smooth user experience with infinite scroll and responsive design
-- Local persistence for your favorite games
+Originally inspired by _The Odin Project_, this project was intentionally taken beyond tutorial scope — with a focus on **scalability, separation of concerns, and real-world frontend patterns**, including feature-based architecture, centralized data fetching, and route-level code splitting.
 
 ## ✨ Features
 
 - ⚙️ **Powered by RAWG API** — live video game data
 - ♾️ **Infinite Scroll** for seamless discovery
 - 🔍 **Smart Search** — find any game instantly
-- ❤️ **Favorites System** with localStorage + tab sync
+- ❤️ **Favorites System** with persistent storage & cross-tab synchronization
 - 🧭 **Genre-Based Browsing** and curated Discover sections
-- 🧩 **React Query** for caching and pagination
+- 🧩 **TanStack React Query** for caching, pagination, and request deduplication
 - 🪶 **Modern UI** built with TailwindCSS v4
 - 📜 **Breadcrumb Navigation** and clean route transitions
 - 📱 **Fully Responsive** for all devices
@@ -45,10 +39,11 @@ Built as part of [The Odin Project](https://www.theodinproject.com/), Arcadia fo
 
 | Category             | Tools                               |
 | -------------------- | ----------------------------------- |
+| **Architecture**     | Feature-based frontend architecture |
 | **Frontend**         | React 19 + Vite                     |
 | **Routing**          | React Router v7                     |
 | **Data Fetching**    | @tanstack/react-query               |
-| **State Management** | useSyncExternalStore (custom store) |
+| **State Management** | React Context + custom hooks        |
 | **Styling**          | TailwindCSS v4 + Prettier Plugin    |
 | **Icons**            | lucide-react                        |
 | **API**              | RAWG.io API                         |
@@ -57,20 +52,40 @@ Built as part of [The Odin Project](https://www.theodinproject.com/), Arcadia fo
 
 ---
 
+## 🏗️ Architecture Decisions
+
+- Adopted **feature-based folder structure** to improve scalability and maintainability
+- Centralized API communication via a reusable API client
+- Isolated shared UI and hooks from feature-specific logic
+- Used provider composition (`AppProviders`) for clean app bootstrapping
+- Implemented route-level code splitting for performance
+
+This architecture allows features to evolve independently without increasing coupling.
+
+---
+
 ## 📂 Folder Structure
 
-```text
-.
-└── src/
-    ├── components/ # Reusable UI elements (GameCard, Gallery, etc.)
-    ├── hooks/ # Custom hooks (useGamesQuery, useFavorites)
-    ├── layout/ # Layout components (Header, Sidebar, ScrollToTop)
-    ├── pages/ # Page-level components (Home, Genres, Discover, etc.)
-    ├── services/ # RAWG API logic
-    ├── stores/ # Custom global store for favorites
-    ├── utils/ # Static config & helpers
-    ├── App.jsx # Root app structure
-    └── main.jsx # Entry point
+````text
+src/
+├── app/                 # App bootstrap (router, providers)
+├── features/            # Feature-based domains (games, genres, favorites)
+│   ├── games/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   └── pages/
+│   ├── genres/
+│   ├── favorites/
+│   └── discover/
+├── layout/              # App shell (Header, Sidebar, ScrollToTop)
+├── shared/              # Reusable UI, hooks, and utilities
+│   ├── components/
+│   ├── hooks/
+│   └── utils/
+├── lib/                 # App-wide infrastructure (API client, env, queryClient)
+├── styles/              # Global styles & Tailwind setup
+└── main.jsx             # Application entry point
 ```
 
 ---
@@ -82,7 +97,7 @@ Built as part of [The Odin Project](https://www.theodinproject.com/), Arcadia fo
 ```bash
 git clone https://github.com/devxsameer/arcadia.git
 cd arcadia
-```
+````
 
 ### 2. Install dependencies
 
@@ -121,13 +136,15 @@ Powered by React Query’s useInfiniteQuery:
 ```js
 const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
   useInfiniteQuery({
-    queryKey: ['games', params],
+    queryKey: gameKeys.list(params),
     queryFn: ({ pageParam = 1 }) =>
       fetchGames({ ...params, page: pageParam }),
     getNextPageParam: (lastPage, allPages) =>
       lastPage.next ? allPages.length + 1 : undefined,
   });
 ```
+
+Query keys are centralized to ensure consistency and predictable cache behavior.
 
 ### ❤️ Custom Favorite Store
 
@@ -162,7 +179,7 @@ Lightweight local store synchronized across tabs:
 
 Deployed with Vercel
 
-🔗 **Live Demo:** [arcadiagamesx.vercel.app](https://arcadiagamesx.vercel.app/)
+🔗 **Live Demo:** [arcadia.devxsameer.me](https://arcadia.devxsameer.me)
 
 ---
 
@@ -182,12 +199,21 @@ Deployed with Vercel
 
 ---
 
+## 🧠 What I Learned
+
+- Designing scalable frontend architecture beyond tutorials
+- Managing complex async data flows with React Query
+- Structuring large React apps using domain-driven patterns
+- Improving UX through loading states, caching, and infinite scrolling
+- Balancing UI polish with maintainable code
+
 ## 🧑‍💻 Author
 
 **Sameer Ali**  
 Frontend Developer | React Enthusiast | Building modern web experiences
 
-- 🐙 [Github](https://github.com/devxsameer)
+- 🌐 [Portfolio](https://devxsameer.me)
+- 🐙 [GitHub](https://github.com/devxsameer)
 - 💼 [LinkedIn](https://www.linkedin.com/in/devxsameer/)
 
 ---
