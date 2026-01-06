@@ -19,7 +19,15 @@ Discover, explore, and track your next favorite video game.
 
 **Arcadia** is a production-style video game discovery platform built using modern React architecture principles.
 
-Originally inspired by _The Odin Project_, this project was intentionally taken beyond tutorial scope — with a focus on **scalability, separation of concerns, and real-world frontend patterns**, including feature-based architecture, centralized data fetching, and route-level code splitting.
+Designed as a production-style frontend application, this project was intentionally taken beyond tutorial scope — with a focus on **scalability, maintainability, separation of concerns, and real-world frontend patterns**, including feature-based architecture, centralized data fetching, and route-level code splitting.
+
+## 🧠 Engineering Highlights
+
+- Feature-based frontend architecture for scalable growth
+- Centralized data fetching with caching & pagination using TanStack Query
+- Infinite scrolling with IntersectionObserver
+- Persistent client-side state with cross-tab synchronization
+- Route-level code splitting and performance-focused UX
 
 ## ✨ Features
 
@@ -199,14 +207,6 @@ Deployed with Vercel
 - 🧩 [lucide-react](https://lucide.dev/) — icons
 
 ---
-
-## 🧠 What I Learned
-
-- Designing scalable frontend architecture beyond tutorials
-- Managing complex async data flows with React Query
-- Structuring large React apps using domain-driven patterns
-- Improving UX through loading states, caching, and infinite scrolling
-- Balancing UI polish with maintainable code
 
 ## 🧑‍💻 Author
 
